@@ -1,9 +1,10 @@
-use ussh::conn::{SSHConfig, SSHConn};
+use ussh::client::{SSHClient, SSHConfig};
+use ussh::Client;
 
 fn main() {
-    let config = SSHConfig::new("192.168.8.1:22", "root", "11111");
+    let config = SSHConfig::new("192.168.8.1:22", "root", "111111");
 
-    let conn = match SSHConn::new(&config) {
+    let conn = match SSHClient::new(&config) {
         Ok(conn) => conn,
         Err(_) => return,
     };
