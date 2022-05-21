@@ -1,6 +1,7 @@
 use ssh2::Session;
 
 use crate::errors::SSHError;
+use crate::Client;
 use std::io::prelude::*;
 use std::net::TcpStream;
 
@@ -20,12 +21,12 @@ impl SSHConfig {
     }
 }
 
-pub struct SSHConn {
+pub struct SSHClient {
     sess: Session,
 }
 
-impl SSHConn {
-    pub fn new(c: &SSHConfig) -> Result<SSHConn, SSHError> {
+impl SSHClient {
+    pub fn new(c: &SSHConfig) -> Result<SSHClient, SSHError> {
         let tcp = TcpStream::connect(&c.addr).unwrap();
         let mut sess = Session::new().unwrap();
         sess.set_tcp_stream(tcp);
@@ -36,10 +37,12 @@ impl SSHConn {
             return Err(SSHError::UnAuthorizedErr);
         }
 
-        Ok(SSHConn { sess: sess })
+        Ok(SSHClient { sess: sess })
     }
+}
 
-    pub fn execute(&self, command: &str) -> Result<String, SSHError> {
+impl Client for SSHClient {
+    fn execute(&self, command: &str) -> Result<String, SSHError> {
         let mut channel = match self.sess.channel_session() {
             Ok(chan) => chan,
             Err(_) => return Err(SSHError::ChannelErr),
