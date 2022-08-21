@@ -1,7 +1,11 @@
 #!/bin/bash 
 
+#params
+iso=${1?missing param - path iso}
+
 # constants
 satactl=SATA
+idectl=IDE
 
 # vars
 vmname=kali-$(uuidgen)
@@ -32,3 +36,5 @@ VBoxManage storageattach ${vmname} --storagectl ${satactl} --port 0 --device 0 -
 
 # adding a image
 echo "---> adding the iso image"
+VBoxManage storagectl ${vmname} --name ${idectl} --add ide
+VBoxManage storageattach ${vmname} --storagectl ${idectl} --port 0 --device 0 --type dvddrive --medium ${iso}
