@@ -9,8 +9,8 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
 
-  config.vm.box = "cristianchaparroa/kali-netinstall"
-  config.vm.box_version = "2022.2"
+  config.vm.box = "cristianchaparroa/KLN-2022.3"
+  config.vm.box_version = "2022.3"
 
   #provisioning
 
