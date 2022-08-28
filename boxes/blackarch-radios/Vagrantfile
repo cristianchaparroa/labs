@@ -1,0 +1,8 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "cristianchaparroa/blackarch-base"
+  config.vm.box_version = "20220825"
+
+  # provision
+  config.vm.provision :shell, path: "provision/core.sh"
+end
+
