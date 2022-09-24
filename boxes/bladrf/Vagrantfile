@@ -1,0 +1,20 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "cristianchaparroa/KLN-2022.3"
+  config.vm.box_version = "2022.3"
+
+  #provisioning
+
+  config.vm.provision :shell, path: "provision/core.sh"
+
+  if Vagrant.has_plugin?("vagrant-vbguest") then
+          config.vbguest.auto_update = false
+  end
+
+  # Its required to install on host system the virtualbox extension pack
+  #
+  # Enable USB Controller on VirtualBox
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+  end
+end
