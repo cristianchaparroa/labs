@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
+DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
+sudo apt install debconf-utils
 
-sudo apt-get update -y
-sudo apt-get upgrade -y
-sudo apt-get dist-upgrade 
+DEBIAN_FRONTEND=noninteractive sudo apt-get -y upgrade
+DEBIAN_FRONTEND=noninteractive sudo apt-get -y dist-upgrade
 
 sudo apt-get install aptitude -y
-sudo apt-get install build-essential bc libelf-dev linux-headers-`uname -r` -y
-
-sudo apt install net-tools wireless-tools -y 
+sudo apt-get install build-essential bc libelf-dev  -y
+sudo apt-get install linux-headers-`uname -r` -y
+sudo apt install net-tools wireless-tools -y
